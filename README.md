@@ -41,11 +41,13 @@ source install/setup.bash
 ## Usage
 
 ```bash
+# First of all add the gazebo models under in the models of follower package to your default gazebo_models path check how to do then run these files 
+
+# In each terminal, Build using - colcon build, then source each terminal by - source install/setup.bash
 # Terminal 1: Launch the simulation
 ros2 launch follower new_track.launch.py
 
 # Terminal 2: Run the follower node
-source ~/follower_ws/install/setup.bash
 ros2 run follower follower_node
 
 # Terminal 3: Start the robot
