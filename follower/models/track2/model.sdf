@@ -20,7 +20,6 @@
           </plane>
         </geometry>
         <material>
-          <!-- Gz Harmonic uses PBR or direct texture URIs instead of Ogre material scripts -->
           <ambient>1 1 1 1</ambient>
           <diffuse>1 1 1 1</diffuse>
           <specular>0.03 0.03 0.03 1</specular>

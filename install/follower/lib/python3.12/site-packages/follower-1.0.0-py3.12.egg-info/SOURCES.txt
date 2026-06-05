@@ -1,4 +1,3 @@
-NOTICE
 package.xml
 setup.cfg
 setup.py

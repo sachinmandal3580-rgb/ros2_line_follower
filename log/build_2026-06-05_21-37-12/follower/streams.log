@@ -1,0 +1,42 @@
+[0.573s] Invoking command in '/home/sachin/ros2_line_follower/follower': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=(.ros2_venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/sachin/ros2_line_follower/build/follower/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/sachin/ros2_line_follower/install/follower/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.ros2_venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/follower build --build-base /home/sachin/ros2_line_follower/build/follower/build install --record /home/sachin/ros2_line_follower/build/follower/install.log --install-scripts $base/lib/follower --single-version-externally-managed install_data
+[0.666s] /usr/lib/python3/dist-packages/setuptools/dist.py:744: SetuptoolsDeprecationWarning: Invalid dash-separated options
+[0.666s] !!
+[0.666s] 
+[0.666s]         ********************************************************************************
+[0.666s]         Usage of dash-separated 'script-dir' will not be supported in future
+[0.666s]         versions. Please use the underscore name 'script_dir' instead.
+[0.666s] 
+[0.666s]         This deprecation is overdue, please update your project and remove deprecated
+[0.666s]         calls to avoid build errors in the future.
+[0.666s] 
+[0.667s]         See https://setuptools.pypa.io/en/latest/userguide/declarative_config.html for details.
+[0.667s]         ********************************************************************************
+[0.667s] 
+[0.667s] !!
+[0.667s]   opt = self.warn_dash_deprecation(opt, section)
+[0.754s] running egg_info
+[0.767s] writing ../build/follower/follower.egg-info/PKG-INFO
+[0.767s] writing dependency_links to ../build/follower/follower.egg-info/dependency_links.txt
+[0.767s] writing entry points to ../build/follower/follower.egg-info/entry_points.txt
+[0.767s] writing requirements to ../build/follower/follower.egg-info/requires.txt
+[0.767s] writing top-level names to ../build/follower/follower.egg-info/top_level.txt
+[0.793s] reading manifest file '../build/follower/follower.egg-info/SOURCES.txt'
+[0.794s] writing manifest file '../build/follower/follower.egg-info/SOURCES.txt'
+[0.794s] running build
+[0.794s] running build_py
+[0.794s] running install
+[0.798s] running install_lib
+[0.811s] running install_data
+[0.811s] copying package.xml -> /home/sachin/ros2_line_follower/install/follower/share/follower
+[0.812s] copying launch/new_track.launch.py -> /home/sachin/ros2_line_follower/install/follower/share/follower/launch
+[0.812s] copying worlds/new_track.sdf -> /home/sachin/ros2_line_follower/install/follower/share/follower/worlds
+[0.812s] copying models/custom_turtlebot/model.sdf -> /home/sachin/ros2_line_follower/install/follower/share/follower/models/custom_turtlebot
+[0.812s] copying models/track2/model.sdf -> /home/sachin/ros2_line_follower/install/follower/share/follower/models/track2
+[0.812s] running install_egg_info
+[0.825s] removing '/home/sachin/ros2_line_follower/install/follower/lib/python3.12/site-packages/follower-1.0.0-py3.12.egg-info' (and everything under it)
+[0.825s] Copying ../build/follower/follower.egg-info to /home/sachin/ros2_line_follower/install/follower/lib/python3.12/site-packages/follower-1.0.0-py3.12.egg-info
+[0.825s] running install_scripts
+[0.906s] Installing follower_node script to /home/sachin/ros2_line_follower/install/follower/lib/follower
+[0.906s] Installing tester script to /home/sachin/ros2_line_follower/install/follower/lib/follower
+[0.906s] writing list of installed files to '/home/sachin/ros2_line_follower/build/follower/install.log'
+[0.926s] Invoked command in '/home/sachin/ros2_line_follower/follower' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=(.ros2_venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/sachin/ros2_line_follower/build/follower/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/sachin/ros2_line_follower/install/follower/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.ros2_venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/follower build --build-base /home/sachin/ros2_line_follower/build/follower/build install --record /home/sachin/ros2_line_follower/build/follower/install.log --install-scripts $base/lib/follower --single-version-externally-managed install_data

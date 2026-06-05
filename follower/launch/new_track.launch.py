@@ -1,14 +1,4 @@
 #!/usr/bin/env python3
-"""
-Launch file for the line follower simulation.
-Migrated from ROS2 Humble + Gazebo Classic → ROS2 Jazzy + Gazebo Harmonic.
-
-Key changes:
-  - gazebo_ros gzserver/gzclient → ros_gz_sim gz_sim.launch.py
-  - turtlebot3_gazebo dependency removed (robot is self-contained in our model)
-  - ros_gz_bridge added to forward Gz transport topics → ROS2 topics
-  - GZ_SIM_RESOURCE_PATH used instead of GAZEBO_MODEL_PATH
-"""
 
 import os
 
@@ -45,14 +35,12 @@ def generate_launch_description():
         ),
 
         # ── Set GZ_SIM_RESOURCE_PATH so Gz Harmonic can find our models ──
-        # (Replaces the old GAZEBO_MODEL_PATH)
         SetEnvironmentVariable(
             name='GZ_SIM_RESOURCE_PATH',
             value=models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''),
         ),
 
         # ── Launch Gazebo Harmonic ──
-        # Replaces the old gazebo_ros gzserver.launch.py + gzclient.launch.py
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
@@ -62,10 +50,6 @@ def generate_launch_description():
             }.items(),
         ),
 
-        # ── ros_gz_bridge: forward Gz transport topics to ROS2 ──
-        # This is the KEY difference from Gazebo Classic:
-        #   In Classic, plugins published directly to ROS topics.
-        #   In Harmonic, sensors publish to Gz transport, and we bridge them to ROS.
         Node(
             package='ros_gz_bridge',
             executable='parameter_bridge',
@@ -100,11 +84,4 @@ def generate_launch_description():
             ],
             output='screen',
         ),
-
-        # ── Robot State Publisher ──
-        # Note: Since we use a standalone SDF model (not URDF/Xacro),
-        # and the tf is published by the diff_drive plugin + bridge,
-        # you may want to add a robot_state_publisher node here if you
-        # need the full TF tree for RViz2. For basic line following,
-        # the odom→base_footprint transform from diff_drive is sufficient.
     ])

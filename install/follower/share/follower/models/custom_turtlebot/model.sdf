@@ -260,8 +260,6 @@
             <stddev>0.007</stddev>
           </noise>
         </camera>
-        <!-- No plugin needed: Gz Harmonic sensors publish natively via gz-transport.
-             We use ros_gz_bridge in the launch file to forward to ROS topics. -->
       </sensor>
     </link>
 
@@ -318,8 +316,7 @@
       </axis>
     </joint>
 
-    <!-- ====== Gz Harmonic DiffDrive Plugin ======
-         Replaces: libgazebo_ros_diff_drive.so -->
+    <!-- ====== Gz Harmonic DiffDrive Plugin ====== -->
     <plugin filename="gz-sim-diff-drive-system"
             name="gz::sim::systems::DiffDrive">
       <left_joint>wheel_left_joint</left_joint>
@@ -334,8 +331,7 @@
       <odom_publish_frequency>30</odom_publish_frequency>
     </plugin>
 
-    <!-- ====== Gz Harmonic Joint State Publisher ======
-         Replaces: libgazebo_ros_joint_state_publisher.so -->
+    <!-- ====== Gz Harmonic Joint State Publisher ====== -->
     <plugin filename="gz-sim-joint-state-publisher-system"
             name="gz::sim::systems::JointStatePublisher">
       <joint_name>wheel_left_joint</joint_name>
