@@ -7,7 +7,12 @@
 /home/sachin/ros2_line_follower/install/follower/share/ament_index/resource_index/packages/follower
 /home/sachin/ros2_line_follower/install/follower/share/follower/package.xml
 /home/sachin/ros2_line_follower/install/follower/share/follower/launch/new_track.launch.py
+/home/sachin/ros2_line_follower/install/follower/share/follower/launch/sor_track.launch.py
 /home/sachin/ros2_line_follower/install/follower/share/follower/worlds/new_track.sdf
+/home/sachin/ros2_line_follower/install/follower/share/follower/worlds/sor_track.sdf
+/home/sachin/ros2_line_follower/install/follower/share/follower/models/sor_track/model.sdf
+/home/sachin/ros2_line_follower/install/follower/share/follower/models/sor_track/model.config
+/home/sachin/ros2_line_follower/install/follower/share/follower/models/sor_track/materials/textures/sor_track.png
 /home/sachin/ros2_line_follower/install/follower/share/follower/models/custom_turtlebot/model.sdf
 /home/sachin/ros2_line_follower/install/follower/share/follower/models/custom_turtlebot/model.config
 /home/sachin/ros2_line_follower/install/follower/share/follower/models/custom_turtlebot/meshes/lds.dae

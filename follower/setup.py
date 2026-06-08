@@ -14,7 +14,10 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
         (os.path.join('share', package_name, 'worlds'), glob('worlds/*.sdf')),
-        # Models for Gz Harmonic
+        (os.path.join('share', package_name, 'models', 'sor_track'),
+            ['models/sor_track/model.sdf', 'models/sor_track/model.config']),
+        (os.path.join('share', package_name, 'models', 'sor_track', 'materials', 'textures'),
+            glob('models/sor_track/materials/textures/*')),
         (os.path.join('share', package_name, 'models', 'custom_turtlebot'),
             ['models/custom_turtlebot/model.sdf', 'models/custom_turtlebot/model.config']),
         (os.path.join('share', package_name, 'models', 'custom_turtlebot', 'meshes'),
