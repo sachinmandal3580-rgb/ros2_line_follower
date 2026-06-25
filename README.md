@@ -1,10 +1,10 @@
-# 🏁 ROBOTRACE — Autonomous Vision-Based Line Following Challenge
+# ROBOTRACE — Autonomous Vision-Based Line Following Challenge
 
 ---
 
-## 🚀 Problem Statement
+## Problem Statement
 
-In modern robotics, one of the fundamental capabilities of autonomous systems is **visual navigation without external positioning systems**.
+In modern robotics, one of the fundamental capabilities of autonomous systems is visual navigation without external positioning systems.
 
 From warehouse robots to self-driving cars, machines must be able to:
 
@@ -14,279 +14,219 @@ This challenge simulates that exact problem in a controlled environment.
 
 ---
 
-## 📖 The Story: A Robot Without a Map
+## The Story: A Robot Without a Map
 
 Somewhere inside a quiet simulated world, a robot opens its eyes for the first time.
 
-It doesn't know where it is.
+It doesn't know where it is. It doesn't know where it's going.
 
-It doesn't know where it's going.
-
-There is no map loaded into its memory. No GPS satellite watching from above. No human standing nearby to guide it. It has been placed on a track it has never seen, in a world it knows nothing about — and it is completely on its own.
+There is no map, no GPS, no human guidance. It has been placed on a track it has never seen.
 
 All it has is one sense:
 
-> 👁️ A single forward-facing camera.
+> A single forward-facing camera.
 
-In the first few milliseconds, the world makes no sense at all. Just pixels. Noise. Motion blur. A blur of color with no meaning.
+At first, everything is just noise. But gradually, a pattern emerges — a line on the ground.
 
-But somewhere in that chaos — there's a pattern. A shape. A line, curving ahead into the unknown.
+That line becomes its only guide.
 
-And slowly, frame by frame, the robot starts to understand it.
+The robot repeatedly asks:
 
-That line becomes its compass. Its rulebook. Its entire universe.
-
-Every second, it has to ask itself the same question, over and over again:
-
-> *"Am I still on the line — and if not, how do I get back?"*
-
-That single question — asked thousands of times per minute — is the heartbeat of this entire challenge. Get it right, and the robot glides smoothly around every curve. Get it wrong, and it drifts, wobbles, and eventually loses the track entirely.
-
-This is your robot's story to write. You are not just writing code — you are teaching a machine how to *see*, how to *think*, and how to *recover* when things go wrong. That's the real magic of robotics: it's not about perfection, it's about resilience.
-
-So — can you build a robot that never gives up, even when it loses sight of the path?
+> Am I still on the line — and if not, how do I get back?
 
 ---
 
-## 🤖 Objective
+## Objective
 
-Design and implement an autonomous system that enables a robot to perform **real-time vision-based line following in simulation using ROS2 and Gazebo**.
+Design and implement an autonomous system for real-time vision-based line following in ROS2 and Gazebo.
 
 The robot must:
-
 - Detect the track
 - Stay centered on it
 - Recover from drift or loss of vision
-- Identify special markers on the track
-- Complete a full lap autonomously
-- Stop safely upon mission completion
+- Identify markers on the track
+- Complete a full lap
+- Stop safely at the end
 
 ---
 
-## 🧠 Core Idea: The Robotics Loop
+## Core Idea
 
-```
 Camera Input → OpenCV Processing → Error Computation → Control Output → Robot Motion
-```
 
-At its core, the robot continuously minimizes deviation from the center of the track using feedback control.
+The system continuously minimizes deviation from the track center using feedback control.
 
 ---
 
-## ⚙️ System Overview
+## System Overview
 
-This project is built using two tightly connected components:
+### Robot (SDF Model)
 
-### 🤖 1. Custom Robot (SDF Model) — The Body
+A simulated differential-drive robot in Gazebo.
 
-A physically simulated differential-drive robot inside Gazebo.
+Features:
+- Differential drive base
+- RGB camera
+- Physics-based motion
+- Diff-drive plugin control
 
-**🔧 Features:**
+Purpose:
+Defines physical behavior in simulation (movement, camera view, stability).
 
-- Differential drive base (2 wheels + casters)
-- Forward-facing RGB camera
-- Physics-based inertia and friction
-- Gazebo diff-drive plugin for motion control
+---
 
-**🎯 Purpose:**
+### Follower Node (Brain)
 
-This defines the physical behavior of the robot in simulation.
-
-It determines:
-
-- Stability
-- Turning behavior
-- Camera viewpoint
-- Real-world realism
-
-### 🧠 2. Follower Node — The Brain
-
-A Python-based ROS2 node that acts as the robot's intelligence.
-
-It is responsible for:
-
+A ROS2 Python node responsible for:
 - Reading camera images
-- Detecting the track using OpenCV
-- Computing deviation from center
+- Detecting track using OpenCV
+- Computing error from center
 - Generating motion commands
 - Handling recovery and completion logic
 
 ---
 
-## 👁️ Perception Pipeline
+## Perception Pipeline
 
-Each frame is processed as:
+Raw Image → ROI → Color Threshold → Contours → Centroid → Error
 
-```
-Raw Camera Image
-   ↓
-Region of Interest (ROI)
-   ↓
-Color Thresholding (track segmentation)
-   ↓
-Contour Detection
-   ↓
-Centroid Extraction
-   ↓
-Error Computation
-```
-
-The output is a single value:
-
-> `error` = how far the robot is from the center
+Output:
+- Error = distance from track center
 
 ---
 
-## ⚖️ Control Strategy
+## Control Strategy
 
-The robot uses proportional control:
-
-```python
-error = center_of_image - center_of_line
-angular.z = -Kp * error
-linear.x = constant_speed
-```
-
-This ensures continuous correction toward the track center.
+error = center_of_image - center_of_line  
+angular.z = -Kp * error  
+linear.x = constant speed
 
 ---
 
-## 🔄 Failure Handling Logic
+## Failure Handling
 
-When the line is lost:
-
-1. The robot uses the last known error
-2. Amplifies correction (recovery behavior)
-3. Reduces forward motion
-4. Searches for the track again
-
-Even without vision, it keeps trying to recover.
+When line is lost:
+1. Use last known error
+2. Amplify correction
+3. Reduce forward motion
+4. Search for track again
 
 ---
 
-## 🏁 Mission Completion Logic
+## Mission Completion
 
-The robot:
-
-1. Detects track markers
-2. Tracks lap progress
-3. Confirms completion condition
-4. Executes safe shutdown sequence
-
-It stops only when the mission is complete.
+- Detect markers
+- Track laps
+- Confirm completion
+- Execute safe shutdown
 
 ---
 
-## ⚙️ Constraints
+## WHAT YOU NEED TO CHANGE
 
-You are allowed to modify **ONLY TWO FILES**:
+You will complete TODOs across 4 files:
 
-### 1️⃣ `custom_turtlebot3.sdf`
+---
 
-You may adjust:
+### 1. follower_node.py (Brain)
 
-- Camera position and angle
-- Wheel friction and inertia
-- Robot stability parameters
-- Sensor configuration
+Vision:
+- ROI cropping
+- Color thresholding
+- Contour detection
+- Centroid extraction
+- Marker detection
 
-**🎯 Goal:** Make the robot physically stable for vision control.
-
-### 2️⃣ `follower_node.py`
-
-You may improve:
-
-- Vision processing pipeline
-- Threshold tuning
-- Control stability
+Control:
+- Error computation
 - Recovery behavior
-- Marker detection logic
+- PID/proportional control
+- Speed tuning
 
-**🎯 Goal:** Make the robot intelligent and robust.
-
----
-
-## 🧪 Bonus Challenges
-
-### 🔥 PID Control Upgrade
-
-Replace proportional control with:
-
-- **P** → correction
-- **I** → drift correction
-- **D** → smooth motion
-
-### 📊 Live Dashboard
-
-Display in real-time:
-
-- Error value
-- Angular velocity
-- Linear velocity
-- Distance traveled
-- Lap progress
-
-### 🏎 Adaptive Speed Control
-
-- Slow down on sharp curves
-- Speed up on straight paths
-- Adjust speed dynamically based on error
-
-### 🗺 Custom Track Challenge
-
-Design your own Gazebo track:
-
-- Curves
-- Sharp turns
-- Loops
-- Marker zones
-
-Then test: **Can your robot survive your own world?**
-
----
-
-## 📦 Deliverables
-
-### 🎥 1. Demonstration Video
-
-Must include:
-
-- Robot startup
-- Line tracking
-- Recovery behavior
-- Full lap completion
+Logic:
+- Lap counting
+- Completion detection
 - Safe shutdown
 
-### 📁 2. GitHub Repository
+---
 
-Must contain:
+### 2. custom_turtlebot3.sdf (Robot)
 
-- `/src` directory
-- `custom_turtlebot3.sdf`
-- `follower_node.py`
+Camera:
+- Position and tilt
+- Field of View
+- Update rate
+- Noise model
+
+Physics:
+- Wheel radius
+- Wheel separation
+- Friction tuning
+- Contact stability
+
+Control plugin:
+- Diff-drive parameters
+
+---
+
+### 3. world.sdf (Environment)
+
+- Robot spawn position (x, y)
+- Initial yaw orientation
+
+Why:
+Controls whether robot can even see the track properly.
+
+---
+
+### 4. setup.py (ROS2 Build)
+
+Add console script entry:
+
+follower = follower.<your_file>:main
+
+Without this:
+- ros2 run will not work
+- node will not start
+
+---
+
+## Bonus Challenges
+
+- PID control upgrade
+- Live telemetry dashboard
+- Adaptive speed control
+- Custom track design
+
+---
+
+## Deliverables
+
+1. Demo video:
+- Startup
+- Tracking
+- Recovery
+- Full lap
+- Shutdown
+
+2. GitHub repo:
+- Source code
+- SDF models
 - Launch files
-- README documentation
+- README
 
-### 📄 3. Short Technical Report
-
-Explain:
-
-- System design approach
+3. Report:
+- Design
 - Vision pipeline
-- Control logic
-- Challenges faced
+- Control strategy
 - Tuning process
 
 ---
 
-## 🏁 Final Message
+## Final Message
 
-This is not just a simulation project.
+This project is a full autonomy loop:
 
-It is a complete robotics loop:
+See → Understand → Act → Recover → Improve
 
-**See → Understand → Correct → Move → Fail → Recover → Improve**
-
-If your robot completes this challenge successfully, then you haven't just written code —
-
-**you have built a working autonomous system.**
+If completed successfully, you have built a working autonomous system.
