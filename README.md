@@ -74,7 +74,7 @@ A ROS 2 Python node (`follower_node.py`) responsible for reading camera images, 
 
 This repository contains several TODOs distributed across four files. Complete these implementations to obtain a fully autonomous, recovery-capable line-following robot.
 
-### 1. Robot Model — `models/custom_turtlebot3/model.sdf`
+### 1. Robot Model — `follower/models/custom_turtlebot3/model.sdf`
 
 **TODO 1 — Physics Tuning**
 Adjust wheel radius, wheel separation, friction, and contact stability so the robot drives predictably without slipping or oscillating.
@@ -85,7 +85,7 @@ Tune camera position, tilt, field of view, update rate, and noise model so the t
 **TODO 3 — Control Plugin**
 Configure the diff-drive plugin parameters to match the tuned physical model.
 
-### 2. World Definition — `follower/worlds/new_world.sdf` & `follower/worlds/sor_world.sdf` 
+### 2. World Definition — `follower/worlds/new_track.sdf` & `follower/worlds/sor_track.sdf` 
 
 **TODO 1 — Spawn Placement**
 Set the robot's spawn position (x, y) and initial yaw orientation so it starts correctly aligned with the track. This directly determines whether the robot can even see the line at startup.
