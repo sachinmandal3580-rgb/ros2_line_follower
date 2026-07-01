@@ -64,31 +64,17 @@ The project consists of three major components.
 ### 1. Robot (SDF Model)
 A simulated differential-drive robot in Gazebo, defined by `custom_turtlebot3.sdf`. It provides a differential-drive base, an RGB camera, physics-based motion, and a diff-drive plugin for velocity control — establishing the robot's physical behavior in simulation, from how it moves to what it sees.
 
-### 2. Follower Node (Brain)
-A ROS 2 Python node (`follower_node.py`) responsible for reading camera images, detecting the track via OpenCV, computing the error from center, generating motion commands, and handling both recovery and mission-completion logic. This is the perceptual and decision-making core of the robot.
-
-### 3. World & Environment
+### 2. World & Environment
 A Gazebo world file (`world.sdf`) defining the track layout, the robot's spawn position, and its initial yaw orientation — controlling whether the robot can actually see the track properly the moment it wakes up.
+
+### 3. Follower Node (Brain)
+A ROS 2 Python node (`follower_node.py`) responsible for reading camera images, detecting the track via OpenCV, computing the error from center, generating motion commands, and handling both recovery and mission-completion logic. This is the perceptual and decision-making core of the robot.
 
 ## What You Need To Implement
 
 This repository contains several TODOs distributed across four files. Complete these implementations to obtain a fully autonomous, recovery-capable line-following robot.
 
-### 1. Follower Node — `follower/follower/follower_node.py`
-
-**TODO 1 — Vision Pipeline**
-Implement ROI cropping, color thresholding, contour detection, centroid extraction, and marker detection so the robot can reliably locate the line and any lap markers in each camera frame.
-
-**TODO 2 — Control Logic**
-Compute the error between the image center and the detected line center, and implement proportional (or PID) control to convert that error into smooth angular and linear velocity commands, with appropriate speed tuning.
-
-**TODO 3 — Recovery Behavior**
-When the line is lost, use the last known error, amplify the correction, reduce forward motion, and re-search for the track until it's reacquired.
-
-**TODO 4 — Mission Logic**
-Implement lap counting, completion detection, and a safe shutdown sequence once the lap is confirmed complete.
-
-### 2. Robot Model — `custom_turtlebot3.sdf`
+### 1. Robot Model — `custom_turtlebot3.sdf`
 
 **TODO 1 — Camera Configuration**
 Tune camera position, tilt, field of view, update rate, and noise model so the track is visible and trackable under simulated sensor noise.
@@ -99,10 +85,24 @@ Adjust wheel radius, wheel separation, friction, and contact stability so the ro
 **TODO 3 — Control Plugin**
 Configure the diff-drive plugin parameters to match the tuned physical model.
 
-### 3. World Definition — `world.sdf`
+### 2. World Definition — `world.sdf`
 
 **TODO 1 — Spawn Placement**
 Set the robot's spawn position (x, y) and initial yaw orientation so it starts correctly aligned with the track. This directly determines whether the robot can even see the line at startup.
+
+### 3. Follower Node — `follower/follower/follower_node.py`
+
+**TODO 1 — Contour Classification & Centroid Extraction**
+Tell the track line apart from a lap marker by contour size, and extract each one's centroid, correctly mapped back to the full frame.
+
+**TODO 2 — Tracking Error & Line-Loss Handling**
+Compute error from the line's offset to image center. When the line disappears, amplify the last known error and hold forward motion until reacquired.
+
+**TODO 3 — Lap Completion Detection**
+Detect a completed lap from marker crossings, debounced and only while centered, then trigger the finalization countdown.
+
+**TODO 4 — Proportional Steering & Command Gating**
+Convert error into a corrective angular velocity, and only publish movement while the follower is active.
 
 ### 4. Build Configuration — `setup.py`
 
@@ -178,20 +178,20 @@ The robot will begin reading camera frames, detecting the track, and autonomousl
 
 Once you've completed all the required TODOs and the robot can reliably complete a full autonomous lap, try extending the project with the following challenges.
 
-**Bonus Challenge 1 — PID Control Upgrade**
+### Bonus Challenge 1 — PID Control Upgrade**
 
-*Objective:* Currently, the control strategy is a simple proportional (P) controller. Upgrade it to a full PID controller for smoother, more stable tracking at higher speeds.
+**Objective:** Currently, the control strategy is a simple proportional (P) controller. Upgrade it to a full PID controller for smoother, more stable tracking at higher speeds.
 
-*What to implement:*
+**What to implement:**
 - Add integral and derivative terms to the error computation
 - Tune gains for stability across straightaways and sharp turns
 - Compare lap times and stability against the P-only baseline
 
-**Bonus Challenge 2 — Live Telemetry Dashboard & Adaptive Speed**
+### Bonus Challenge 2 — Live Telemetry Dashboard & Adaptive Speed**
 
-*Objective:* Currently, the robot runs at a constant forward speed and provides no visibility into its internal state. Add real-time telemetry and adaptive speed control.
+**Objective:** Currently, the robot runs at a constant forward speed and provides no visibility into its internal state. Add real-time telemetry and adaptive speed control.
 
-*What to implement:*
+**What to implement:**
 - Publish/display live error, speed, and lap-count telemetry (e.g. via a dashboard or RViz overlay)
 - Adjust forward speed dynamically based on curvature or error magnitude — slowing through turns, accelerating on straights
 - Support a custom, more complex track design to stress-test the adaptive behavior
