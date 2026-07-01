@@ -198,7 +198,7 @@ The robot will begin reading camera frames, detecting the track, and autonomousl
 
 Once you've completed all the required TODOs and the robot can reliably complete a full autonomous lap, try extending the project with the following challenges.
 
-### Bonus Challenge 1 — PID Control Upgrade**
+### Bonus Challenge 1 — PID Control Upgrade
 
 **Objective:** Currently, the control strategy is a simple proportional (P) controller. Upgrade it to a full PID controller for smoother, more stable tracking at higher speeds.
 
@@ -207,7 +207,7 @@ Once you've completed all the required TODOs and the robot can reliably complete
 - Tune gains for stability across straightaways and sharp turns
 - Compare lap times and stability against the P-only baseline
 
-### Bonus Challenge 2 — Live Telemetry Dashboard & Adaptive Speed**
+### Bonus Challenge 2 — Live Telemetry Dashboard & Adaptive Speed
 
 **Objective:** Currently, the robot runs at a constant forward speed and provides no visibility into its internal state. Add real-time telemetry and adaptive speed control.
 
