@@ -14,6 +14,8 @@ Before any of this can be trusted on a real robot, engineers need a simulation e
 
 The objective of this project is to build a complete autonomous line-following system that combines OpenCV-based perception, proportional error control, failure recovery, and lap/marker tracking to complete a full autonomous lap in a realistic ROS 2 + Gazebo simulation environment.
 
+---
+
 ## The Story
 
 Somewhere inside a quiet simulated world, a robot opens its eyes for the first time.
@@ -42,6 +44,8 @@ The only input was a single camera feed — everything else was accomplished thr
 
 This project is not just about following a line — it is about building the smallest complete loop of autonomy: **see, understand, act, recover, improve.** The same feedback principle scales from a toy track all the way up to warehouse AGVs and self-driving vehicles.
 
+---
+
 ## Objective
 
 Develop a complete ROS 2 software stack capable of autonomously detecting, following, and completing a lap around a track using only a forward-facing camera — inside a realistic Gazebo simulation.
@@ -56,6 +60,7 @@ Camera Input → ROI Crop → Color Threshold → Contour Detection → Centroid
    → [Line Lost? → Recovery: last-known error → amplified correction → reduced speed → re-search]
    → Marker Detection → Lap Counting → Completion Check → Safe Shutdown
 ```
+---
 
 ## System Overview
 
@@ -69,6 +74,8 @@ A Gazebo world file (`world.sdf`) defining the track layout, the robot's spawn p
 
 ### 3. Follower Node (Brain)
 A ROS 2 Python node (`follower_node.py`) responsible for reading camera images, detecting the track via OpenCV, computing the error from center, generating motion commands, and handling both recovery and mission-completion logic. This is the perceptual and decision-making core of the robot.
+
+---
 
 ## What You Need To Implement
 
@@ -115,6 +122,8 @@ follower = follower.<your_file>:main
 
 Without this, `ros2 run` will not work and the node will not start.
 
+---
+
 ## Perception & Control Details
 
 **Perception Pipeline**
@@ -145,6 +154,8 @@ linear.x = constant speed
 * Confirm completion
 * Execute safe shutdown
 
+---
+
 ## Running the Project
 
 Build the workspace:
@@ -162,14 +173,23 @@ source install/setup.bash
 
 ### Step 1 — Launch the Simulation
 
-Open a terminal and launch Gazebo with the track world and the spawned robot. Wait until the world fully loads and the robot model appears before running Step 2.
+Open a terminal and launch Gazebo with the track world and the spawned robot. 
+```bash
+ros2 launch follower new_track.launch.py
+```
+Wait until the world fully loads and the robot model appears before running Step 2.
 
 ### Step 2 — Run the Follower Node
 
 Open a new terminal (workspace already sourced) and run:
 
-```
+```bash
 ros2 run follower follower
+```
+
+### Step 2 — start the service
+```bash
+ros2 service call /start_follower std_srvs/srv/Empty
 ```
 
 The robot will begin reading camera frames, detecting the track, and autonomously following the line — correcting for drift, recovering from lost track detection, counting laps via markers, and stopping safely once the lap is complete.
