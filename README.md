@@ -183,7 +183,7 @@ sudo apt install -y ros-jazzy-image-transport-plugins
 pip install opencv-python
 
 # NumPy
-pip install numpy
+pip install "numpy<2"
 
 # colcon build tool
 sudo apt install -y python3-colcon-common-extensions
