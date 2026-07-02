@@ -158,16 +158,47 @@ linear.x = constant speed
 
 ## Running the Project
 
-Build the workspace:
+### Prerequisites
 
+**Install TurtleBot3 Packages**
+
+```bash
+sudo apt install -y ros-jazzy-turtlebot3
+sudo apt install -y ros-jazzy-turtlebot3-simulations
+sudo apt install -y ros-jazzy-turtlebot3-msgs
 ```
+
+**Install cv_bridge and Image Transport**
+
+```bash
+sudo apt install -y ros-jazzy-cv-bridge
+sudo apt install -y ros-jazzy-image-transport
+sudo apt install -y ros-jazzy-image-transport-plugins
+```
+
+**Install Python Dependencies**
+
+```bash
+# OpenCV for Python
+pip install opencv-python
+
+# NumPy
+pip install numpy
+
+# colcon build tool
+sudo apt install -y python3-colcon-common-extensions
+```
+
+**Build the workspace:**
+
+```bash
 cd ~/ros2_line_follower
 colcon build
 ```
 
 For every new terminal, source the workspace:
 
-```
+```bash
 source install/setup.bash
 ```
 
@@ -193,6 +224,8 @@ ros2 service call /start_follower std_srvs/srv/Empty
 ```
 
 The robot will begin reading camera frames, detecting the track, and autonomously following the line — correcting for drift, recovering from lost track detection, counting laps via markers, and stopping safely once the lap is complete.
+
+> You can also launch with the `sor_track.launch.py` 
 
 ## Bonus Challenges
 
