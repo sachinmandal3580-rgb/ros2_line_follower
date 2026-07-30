@@ -81,7 +81,7 @@ A ROS 2 Python node (`follower_node.py`) responsible for reading camera images, 
 
 This repository contains several TODOs distributed across four files. Complete these implementations to obtain a fully autonomous, recovery-capable line-following robot.
 
-### 1. Robot Model — `follower/models/custom_turtlebot3/model.sdf`
+### 1. Robot Model — `follower/models/custom_turtlebot/model.sdf`
 
 **TODO 1 — Physics Tuning**
 Adjust wheel radius, wheel separation, friction, and contact stability so the robot drives predictably without slipping or oscillating.
